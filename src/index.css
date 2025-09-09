@@ -1,0 +1,22 @@
+/* index.css */
+@import url("./reset.css");
+
+@media print {
+  :root {
+    background-color: white !important;
+  }
+}
+
+:root {
+  /* variables */
+  --main-color: black;
+  --spacing: 1rem;
+  --padding: 1rem;
+
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: calc(1.5 * var(--spacing));
+  font-weight: 400;
+
+  background-color: cadetblue;
+  color: var(--main-color);
+}

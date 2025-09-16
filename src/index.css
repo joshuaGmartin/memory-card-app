@@ -17,6 +17,6 @@
   line-height: calc(1.5 * var(--spacing));
   font-weight: 400;
 
-  background-color: cadetblue;
+  background-color: gainsboro;
   color: var(--main-color);
 }

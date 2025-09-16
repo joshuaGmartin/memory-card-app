@@ -12,11 +12,32 @@
   --spacing: 0.5rem;
   --radius: 1rem;
 
-  margin: 0 auto;
-  padding: 0 2rem;
+  padding: var(--spacing);
 
   display: grid;
-  grid-template-rows: auto auto;
+  /* grid-template-columns: repeat(4, 1fr); */
+  grid-template-columns: repeat(4, auto);
+
+  justify-content: space-evenly;
+  align-items: center;
+
+  gap: var(--spacing);
+}
+
+img {
+  max-height: 75vh;
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+
+  border: black 0.5rem solid;
+  box-sizing: border-box;
+}
+
+.art-card-info {
+  padding: var(--padding);
 }
 
 /***************** sections *****************/

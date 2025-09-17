@@ -24,6 +24,9 @@
   gap: var(--spacing);
 }
 
+.art-card {
+}
+
 img {
   max-height: 75vh;
   width: auto;
@@ -38,6 +41,7 @@ img {
 
 .art-card-info {
   padding: var(--padding);
+  padding-top: var(--spacing);
 }
 
 /***************** sections *****************/

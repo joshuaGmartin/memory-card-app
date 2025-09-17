@@ -2,83 +2,88 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 export default function App() {
-  const [artData, setImage_url] = useState([]);
+  const [artData, setArtData] = useState([]);
   useEffect(() => {
-    getArt(setImage_url);
+    getArt(artData, setArtData);
   }, []);
 
   return (
     <>
-      {artData.map((data) => {
-        return (
-          <div className="art-card">
-            <img
-              key={data.image_id}
-              src={data.url}
-              alt=""
-              onClick={() => console.table(data)}
-            />
-            <div className="art-card-info">
-              <b>
-                {data.title}, {data.date_end}
-              </b>{" "}
-              <br></br>
-              <i>{data.artist_title}</i>
+      {artData.map((data, index) => {
+        // number imgs to show, need random
+        if (index < 4) {
+          return (
+            <div className="art-card" key={data.image_id}>
+              <img
+                key={data.image_id}
+                src={data.url}
+                alt=""
+                onClick={() => console.table(data)}
+              />
+              <div className="art-card-info">
+                <b>
+                  {data.title}, {data.date_end}
+                </b>{" "}
+                <br></br>
+                <i>{data.artist_title}</i>
+              </div>
             </div>
-          </div>
-        );
+          );
+        }
       })}
     </>
   );
 }
 
-async function getArt(setImage_url) {
+async function getArt(artData, setArtData) {
+  // main variables
   const numDesiredImgs = 4;
-  let selectedArt = [];
+  const searchQueries = ["paintings", "drawings"];
 
+  //test
+  let skip = false;
+
+  let selectedArt = [...artData]; // make copy
+  // let pageChoices = [];
+  // API allows 10 pages at 100 artworks each
+  let pageChoices = randomOrder(10, 1);
+  let currPageIndex = 0;
+
+  // grab pages until fill quota
   while (selectedArt.length < numDesiredImgs) {
-    let artPageData = await getArtPageData();
-    // bug fix: if no art has image_id, gets stuck in loop or pulls art with no img
-    artPageData = artPageData.filter((data) => data.image_id !== null);
-
-    // can get stuck in loop if there are not numDesiredImgs number of true image_id on the data page
-    const maxTries = 50;
-    let currTry = 1;
-    while (selectedArt.length < numDesiredImgs && currTry <= maxTries) {
-      if (artPageData.length === 0) break; // bug fix: randomArtData() tries to pull form empty array
-
-      const randomArtData =
-        artPageData[Math.floor(Math.random() * artPageData.length)];
-      if (checkForUniqueArt(selectedArt, randomArtData))
-        selectedArt.push(randomArtData);
-      currTry++;
+    // Handle error
+    if (currPageIndex > pageChoices.length - 1) {
+      throw new Error("Not enough artworks available");
     }
+
+    // grab current page choice and update counter
+    let artPageData = await getArtPageData(
+      pageChoices[currPageIndex],
+      searchQueries
+    );
+    currPageIndex++;
+
+    selectedArt = getArtFromDataPage(artPageData, selectedArt, numDesiredImgs);
+
+    if (!skip) {
+      // 404
+      // selectedArt.pop();
+      // selectedArt.push({
+      //   image_id: "a45e5f55-d02b-ce98-8bab-3af549684f58",
+      // });
+
+      //403
+      // selectedArt.pop();
+      // selectedArt.push({
+      //   image_id: "0356e981-edc5-56ad-1a64-9ebdae3c5aab",
+      // });
+
+      skip = true;
+    }
+
+    selectedArt = await checkURLs(selectedArt);
   }
 
-  // add urls
-  // for (const art of selectedArt) {
-  //   const artData = await fetch(
-  //     `https://www.artic.edu/iiif/2/${art.image_id}/info.json`
-  //   );
-
-  //   const artDataJSON = await artData.json();
-  //   art.maxImgWidth = artDataJSON.sizes[artDataJSON.sizes.length - 1].width;
-  //   art.url = `https://www.artic.edu/iiif/2/${art.image_id}/full/${art.maxImgWidth},/0/default.jpg`;
-  // }
-
-  await Promise.all(
-    selectedArt.map(async (art) => {
-      // const res = await fetch(
-      //   `https://www.artic.edu/iiif/2/${art.image_id}/info.json`
-      // );
-      // const json = await res.json();
-      // art.maxImgWidth = json.sizes[json.sizes.length - 1].width;
-      // art.url = `https://www.artic.edu/iiif/2/${art.image_id}/full/${art.maxImgWidth},/0/default.jpg`;
-
-      art.maxImgWidth = "843";
-      art.url = `https://www.artic.edu/iiif/2/${art.image_id}/full/${art.maxImgWidth},/0/default.jpg`;
-    })
-  );
   //test long image
   //wide
   // selectedArt.pop();
@@ -98,15 +103,40 @@ async function getArt(setImage_url) {
   // selectedArt.push({
   //   url: "https://www.artic.edu/iiif/2/e6dd6199-c245-d1b4-a997-ce89eafb48ca/full/843,/0/default.jpg",
   // });
-
-  setImage_url(selectedArt);
+  setArtData(selectedArt);
 }
 
-function checkForUniqueArt(selectedArt, randomArtData) {
+function getArtFromDataPage(artPageData, selectedArt, numDesiredImgs) {
+  const randChoices = randomOrder(artPageData.length, 0);
+  let currChoiceIndex = 0;
+
+  while (selectedArt.length < numDesiredImgs) {
+    // Handle Error
+    if (currChoiceIndex > randChoices.length - 1) {
+      return selectedArt; // if reach end, rerun with new page
+    }
+
+    const currArt = artPageData[randChoices[currChoiceIndex]];
+    currChoiceIndex++;
+
+    // run checks
+    if (currArt.image_id === null) continue;
+    if (currArt.artwork_type_title === "Archives (groupings)") continue;
+    if (!checkForUniqueArt(selectedArt, currArt)) continue;
+
+    // if good, add it
+    currArt.checkURLs = false;
+    selectedArt.push(currArt);
+  }
+
+  return selectedArt;
+}
+
+function checkForUniqueArt(selectedArt, currArt) {
   let isUnique = true;
 
   selectedArt.forEach((art) => {
-    if (art.image_id === randomArtData.image_id) {
+    if (art.image_id === currArt.image_id) {
       isUnique = false;
     }
   });
@@ -114,16 +144,18 @@ function checkForUniqueArt(selectedArt, randomArtData) {
   return isUnique;
 }
 
-async function getArtPageData() {
+async function getArtPageData(randPage, searchQueries) {
   //set API call params
-  const fieldsDesired = ["image_id", "artist_title", "title", "date_end"];
-
-  const searchQueries = ["paintings", "drawings"];
+  const fieldsDesired = [
+    "image_id",
+    "artist_title",
+    "title",
+    "date_end",
+    "artwork_type_title",
+  ];
 
   const fieldsDesiredString = fieldsDesired.join(",");
   const searchQueriesString = searchQueries.join(" ");
-  // API only allows 10 pages of limit=100 max
-  let randPage = Math.ceil(Math.random() * 10);
 
   const pageData = await fetch(
     `https://api.artic.edu/api/v1/artworks/search?q=${searchQueriesString}&fields=${fieldsDesiredString}&page=${randPage}&limit=100`
@@ -133,5 +165,54 @@ async function getArtPageData() {
   return pageDataJSON.data;
 }
 
-//remove:       "artwork_type_title": "Archives (groupings)",
-// need handle 403
+// some API calls respond 403 with width as 843 or "full", and need handle 403
+async function checkURLs(selectedArt) {
+  let checkedArt = [];
+
+  await Promise.all(
+    selectedArt.map(async (currArt) => {
+      if (!currArt.checkURLs) {
+        let width = 843;
+        while (width > 0) {
+          const url = `https://www.artic.edu/iiif/2/${currArt.image_id}/full/${width},/0/default.jpg`;
+          const res = await fetch(url);
+
+          // if good, note it and add
+          if (res.ok) {
+            currArt.checkURLs = true;
+            checkedArt.push({ ...currArt, url });
+            break;
+          }
+          // if bad size,
+          else if (res.status === 403) {
+            console.log(width);
+            width -= 40;
+          }
+          // if bad call, skip
+          else if (res.status === 404) {
+            console.log("bad 404");
+            break;
+          } else break;
+        }
+      }
+      // if already checked, pass through
+      else {
+        checkedArt.push(currArt);
+      }
+    })
+  );
+
+  return checkedArt;
+}
+
+function randomOrder(n, start) {
+  const arr = Array.from({ length: n }, (_, i) => i + start);
+
+  // Fisher–Yates shuffle
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]]; // swap
+  }
+
+  return arr;
+}

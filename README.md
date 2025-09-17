@@ -10,6 +10,12 @@ https://www.artic.edu/iiif/2/2d484387-2509-5e8e-2c43-22f9981972eb/full/843,/0/de
 
 
 pseudo code:
-get 10 random
-
+while choices < 10
+get random page
+get page length
+get random order of numbers from 0 to page length
+cycle through random order
+check for good image id and no exclusion
+check for good url (modify if need)
+add to list
 -->

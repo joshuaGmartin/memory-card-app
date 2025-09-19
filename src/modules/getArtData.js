@@ -1,17 +1,13 @@
 import * as Helper from "./helper.js";
 
-export default async function getArtData(
-  artData,
-  numDesiredImgs,
-  searchQueries
-) {
+export default async function getArtData(artData, numArtNeeded, searchQueries) {
   let selectedArt = [...artData]; // make copy
   // API allows 10 pages at 100 artworks each
   let pageChoices = Helper.randomOrder(10, 1);
   let currPageIndex = 0;
 
   // grab pages until fill quota
-  while (selectedArt.length < numDesiredImgs) {
+  while (selectedArt.length < numArtNeeded) {
     // Handle error
     if (currPageIndex > pageChoices.length - 1) {
       throw new Error("Not enough artworks available");
@@ -24,7 +20,7 @@ export default async function getArtData(
     );
     currPageIndex++;
 
-    selectedArt = getArtFromDataPage(artPageData, selectedArt, numDesiredImgs);
+    selectedArt = getArtFromDataPage(artPageData, selectedArt, numArtNeeded);
 
     selectedArt = await checkURLs(selectedArt);
   }
@@ -32,11 +28,11 @@ export default async function getArtData(
   return selectedArt;
 }
 
-function getArtFromDataPage(artPageData, selectedArt, numDesiredImgs) {
+function getArtFromDataPage(artPageData, selectedArt, numArtNeeded) {
   const randChoices = Helper.randomOrder(artPageData.length, 0);
   let currChoiceIndex = 0;
 
-  while (selectedArt.length < numDesiredImgs) {
+  while (selectedArt.length < numArtNeeded) {
     // Handle Error
     if (currChoiceIndex > randChoices.length - 1) {
       return selectedArt; // if reach end, rerun with new page

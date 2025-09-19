@@ -1,12 +1,13 @@
 import selectRenderArt from "../modules/selectRenderArt.js";
+import handleArtClick from "../modules/handleArtClick.js";
 
-export default function GetArt({ artData, setArtData, numDesiredImgs }) {
+export default function GetArt({ artData, setArtData, imgsOnScreen }) {
   if (!artData.length) return null; // GetArt called with init empty artData
 
-  const selectedArt = selectRenderArt(artData, numDesiredImgs);
+  const selectedArt = selectRenderArt(artData, imgsOnScreen);
 
   return (
-    <>
+    <div className="art-cards">
       {selectedArt.map((thisSelectedArtMap) => {
         return (
           <div className="art-card" key={thisSelectedArtMap.image_id}>
@@ -14,20 +15,7 @@ export default function GetArt({ artData, setArtData, numDesiredImgs }) {
               key={thisSelectedArtMap.image_id}
               src={thisSelectedArtMap.url}
               onClick={() => {
-                // probably good to move all this to a clickHandler
-                setArtData(
-                  artData.map((thisArtDataMap) => {
-                    if (
-                      thisArtDataMap.image_id === thisSelectedArtMap.image_id
-                    ) {
-                      return { ...thisArtDataMap, clicked: true };
-                    } else return thisArtDataMap;
-                  })
-                );
-
-                // temp; for testing
-                if (thisSelectedArtMap.clicked) alert("game over");
-                console.table(artData);
+                handleArtClick(thisSelectedArtMap, artData, setArtData);
               }}
             />
             <div className="art-card-info">
@@ -40,6 +28,6 @@ export default function GetArt({ artData, setArtData, numDesiredImgs }) {
           </div>
         );
       })}
-    </>
+    </div>
   );
 }

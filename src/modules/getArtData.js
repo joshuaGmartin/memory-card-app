@@ -2,7 +2,6 @@ import * as Helper from "./helper.js";
 
 export default async function getArtData(
   artData,
-  setArtData,
   numDesiredImgs,
   searchQueries
 ) {
@@ -30,7 +29,7 @@ export default async function getArtData(
     selectedArt = await checkURLs(selectedArt);
   }
 
-  setArtData(selectedArt);
+  return selectedArt;
 }
 
 function getArtFromDataPage(artPageData, selectedArt, numDesiredImgs) {
@@ -114,7 +113,7 @@ async function checkURLs(selectedArt) {
           // if bad size,
           else if (res.status === 403) {
             console.log(width);
-            width -= 40;
+            width -= 50;
           }
           // if bad call, skip
           else if (res.status === 404) {

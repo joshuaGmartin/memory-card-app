@@ -14,4 +14,9 @@ if no click on same one four times = level pass
 each click refreshes imgs in random order
 add 4 more artworks and do the same till failure
 need at least one unclicked artwork per refresh
+
+bugs:
+-selected art fires twice when artData changes from new level?
+
+
 -->

@@ -37,6 +37,11 @@ img {
 
   border: black 0.5rem solid;
   box-sizing: border-box;
+
+  &:hover {
+    cursor: pointer;
+    outline: black solid 2px;
+  }
 }
 
 .art-card-info {

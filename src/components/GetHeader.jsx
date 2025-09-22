@@ -6,7 +6,10 @@ export default function GetHeader({ score, highScore }) {
       <div className="title">
         <h1>Fine Art Memory</h1>
       </div>
-      <GetScore score={score} highScore={highScore}></GetScore>
+      <div className="score-instruction-container">
+        <GetScore score={score} highScore={highScore}></GetScore>
+        {/* <span>Don't click an art work more than once!</span> */}
+      </div>
       {/* GetButtons */}
     </div>
   );

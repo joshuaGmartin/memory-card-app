@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import selectRenderArt from "../modules/selectRenderArt.js";
 import handleArtClick from "../modules/handleArtClick.js";
 
@@ -6,11 +7,21 @@ export default function GetArt({
   setArtData,
   imgsOnScreen,
   setScore,
+  isGameOver,
+  setIsGameOver,
 }) {
-  // check for init
-  if (!artData.length) return null; // GetArt called with init empty artData
+  const [selectedArt, setSelectedArt] = useState([]);
 
-  const selectedArt = selectRenderArt(artData, imgsOnScreen);
+  useEffect(() => {
+    // no update selectedArt if gameOver screen
+    if (!isGameOver) {
+      setSelectedArt(selectRenderArt(artData, imgsOnScreen));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [artData]);
+
+  // check for init
+  if (!artData.length) return null;
 
   return (
     <div className="art-cards">
@@ -25,7 +36,8 @@ export default function GetArt({
                   thisSelectedArtMap,
                   artData,
                   setArtData,
-                  setScore
+                  setScore,
+                  setIsGameOver
                 );
               }}
             />

@@ -2,11 +2,12 @@ export default function handleArtClick(
   clickedArtData,
   artData,
   setArtData,
-  setScore
+  setScore,
+  setIsGameOver
 ) {
-  // check for mistake
+  // check for game over
   if (clickedArtData.clicked) {
-    alert("game over"); // overlay with stats and reset button?
+    setIsGameOver(true);
     return;
   }
 

@@ -108,7 +108,6 @@ async function checkURLs(selectedArt) {
           }
           // if bad size,
           else if (res.status === 403) {
-            console.log(width);
             width -= 50;
           }
           // if bad call, skip

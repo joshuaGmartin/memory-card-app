@@ -8,7 +8,7 @@ export default function GetHeader({ score, highScore }) {
       </div>
       <div className="score-instruction-container">
         <GetScore score={score} highScore={highScore}></GetScore>
-        {/* <span>Don't click an art work more than once!</span> */}
+        <i>Don't click an artwork more than once!</i>
       </div>
       {/* GetButtons */}
     </div>

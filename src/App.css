@@ -22,6 +22,9 @@
   grid-template-columns: repeat(3, 1fr);
 
   align-items: center;
+
+  padding: var(--padding);
+  padding-top: 0;
 }
 
 .art-cards {
@@ -106,6 +109,14 @@ img {
     &:hover {
       transform: scale(1.05);
     }
+  }
+}
+
+.score-instruction-container {
+  justify-self: center;
+
+  > * {
+    text-align: center;
   }
 }
 

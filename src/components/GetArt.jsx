@@ -1,7 +1,13 @@
 import selectRenderArt from "../modules/selectRenderArt.js";
 import handleArtClick from "../modules/handleArtClick.js";
 
-export default function GetArt({ artData, setArtData, imgsOnScreen }) {
+export default function GetArt({
+  artData,
+  setArtData,
+  imgsOnScreen,
+  setScore,
+}) {
+  // check for init
   if (!artData.length) return null; // GetArt called with init empty artData
 
   const selectedArt = selectRenderArt(artData, imgsOnScreen);
@@ -15,7 +21,12 @@ export default function GetArt({ artData, setArtData, imgsOnScreen }) {
               key={thisSelectedArtMap.image_id}
               src={thisSelectedArtMap.url}
               onClick={() => {
-                handleArtClick(thisSelectedArtMap, artData, setArtData);
+                handleArtClick(
+                  thisSelectedArtMap,
+                  artData,
+                  setArtData,
+                  setScore
+                );
               }}
             />
             <div className="art-card-info">

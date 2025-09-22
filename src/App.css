@@ -17,6 +17,13 @@
   display: grid;
 }
 
+.header {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  align-items: center;
+}
+
 .art-cards {
   display: grid;
   /* grid-template-columns: repeat(4, 1fr); */

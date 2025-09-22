@@ -1,8 +1,7 @@
-export default function GetScore({ score, setScore, highScore, setHighScore }) {
+export default function GetScore({ score, highScore }) {
   return (
     <div className="scores">
-      {score}
-      {highScore}
+      Score: {score} | High Score: {highScore}
     </div>
   );
 }

@@ -113,7 +113,6 @@ async function checkURLs(selectedArt) {
           }
           // if bad call, skip
           else if (res.status === 404) {
-            console.log("bad 404");
             break;
           } else break;
         }

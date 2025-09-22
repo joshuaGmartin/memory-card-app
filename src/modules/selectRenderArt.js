@@ -3,6 +3,8 @@ import * as Helper from "./helper.js";
 export default function selectRenderArt(artData, imgsOnScreen) {
   // separate unclicked and run check
   const unclickedArt = handleUnclicked(artData);
+  // const unclickedArt = artData.filter((art) => !art.clicked);
+
   // add one ensured unclicked to selectedArt and seperate from artData
   let { selectedArt, nonTouchedArt } = seperateOneUnclickedArt(
     artData,
@@ -58,7 +60,7 @@ function handleUnclicked(artData) {
   // could be an issue on last click of 4 imgs? because none are unclicked?
   // need fire getArtData before this
   if (artData.length !== 0 && unclickedArt.length === 0) {
-    alert("you win");
+    // alert("you win"); //temp
     throw new Error("no unclicked art");
   }
   // =================================================================================

@@ -1,11 +1,13 @@
 /***************** imports *****************/
-
-/***************** print *****************/
-
-@media print {
+.cormorant-garamond-<uniquifier > {
+  font-family: "Cormorant Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
 }
 
 /***************** main *****************/
+/***************** sections *****************/
 
 #root {
   --padding: 1rem;
@@ -15,6 +17,9 @@
   padding: var(--spacing);
 
   display: grid;
+
+  font-family: "Cormorant Garamond", serif;
+  font-size: large;
 }
 
 .header {
@@ -25,6 +30,25 @@
 
   padding: var(--padding);
   padding-top: 0;
+}
+
+.header-buttons {
+  justify-self: end;
+
+  display: flex;
+  gap: var(--spacing);
+
+  button {
+    padding: var(--spacing);
+    border: none;
+    background: transparent;
+
+    /* font-weight: bold; */
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .art-cards {
@@ -63,8 +87,6 @@ img {
   padding-top: var(--spacing);
 }
 
-/***************** sections *****************/
-
 .game-over-overlay-container {
   position: fixed;
   top: 0;
@@ -101,22 +123,22 @@ img {
 
     width: fit-content;
     margin: 0 auto;
-    text-decoration: underline;
 
     border: none;
     background-color: white;
 
     &:hover {
-      transform: scale(1.05);
+      text-decoration: underline;
     }
   }
 }
 
 .score-instruction-container {
   justify-self: center;
+  text-align: center;
 
-  > * {
-    text-align: center;
+  i {
+    font-size: 0.9rem;
   }
 }
 

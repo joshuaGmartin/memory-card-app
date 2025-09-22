@@ -1,12 +1,6 @@
 /* index.css */
 @import url("./reset.css");
 
-@media print {
-  :root {
-    background-color: white !important;
-  }
-}
-
 :root {
   /* variables */
   --main-color: black;
@@ -17,6 +11,8 @@
   line-height: calc(1.5 * var(--spacing));
   font-weight: 400;
 
-  background-color: gainsboro;
+  background-color: whitesmoke;
+  /* background-color: gainsboro; */
+  /* background-color: slategray; */
   color: var(--main-color);
 }

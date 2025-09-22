@@ -32,6 +32,7 @@ export default function App() {
 
       setArtData(tempArtData);
     }
+
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numArtNeeded, isGameOver]);
@@ -54,9 +55,17 @@ export default function App() {
 
   return (
     <>
-      <GetHeader score={score} highScore={highScore}></GetHeader>
+      <GetHeader
+        searchQueries={searchQueries}
+        setArtData={setArtData}
+        score={score}
+        highScore={highScore}
+        setNumArtNeeded={setNumArtNeeded}
+        setScore={setScore}
+        setIsGameOver={setIsGameOver}
+      ></GetHeader>
       <div className="game-section">
-        {artData.every((art) => art.clicked) ? null : ( // change to artData.length === score ?
+        {artData.every((art) => art.clicked) ? null : (
           <GetArt
             artData={artData}
             setArtData={setArtData}
@@ -68,11 +77,12 @@ export default function App() {
         )}
         {isGameOver ? (
           <GetGameOver
+            searchQueries={searchQueries}
             setArtData={setArtData}
             setNumArtNeeded={setNumArtNeeded}
             setScore={setScore}
             setIsGameOver={setIsGameOver}
-          ></GetGameOver>
+          />
         ) : null}
       </div>
     </>

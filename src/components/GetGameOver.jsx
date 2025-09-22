@@ -1,6 +1,7 @@
 import handleGameReset from "../modules/handleGameReset";
 
 export default function GetGameOver({
+  searchQueries,
   setArtData,
   setNumArtNeeded,
   setScore,
@@ -14,10 +15,12 @@ export default function GetGameOver({
           className="game-reset-button"
           onClick={() =>
             handleGameReset(
+              searchQueries,
               setArtData,
               setNumArtNeeded,
               setScore,
-              setIsGameOver
+              setIsGameOver,
+              true
             )
           }
         >

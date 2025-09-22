@@ -26,5 +26,9 @@ click on unclicked art to rerender
 for every 4 art you get right, 4 more get pulled.
 continue until clicked a previously clicked art
 
+mods:
+load screen (while imgs load)
+force shuffle (some time get same order on click)
+
 
 -->

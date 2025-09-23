@@ -153,3 +153,32 @@ img {
 /* =================================================================== */
 /* catch all */
 /* =================================================================== */
+
+/* ============ Tablet ============ */
+@media (max-width: 1024px) {
+  .header {
+    grid-template-columns: auto;
+    /* grid-template-rows: repeat(3, 1fr); */
+
+    align-items: center;
+    justify-content: center;
+
+    padding: var(--padding);
+    padding-top: 0;
+
+    .header-buttons {
+      justify-self: center;
+    }
+  }
+}
+/* ============ Mobile ============ */
+@media (max-width: 767px) {
+  .art-cards {
+    grid-template-columns: repeat(2, auto);
+
+    justify-content: space-evenly;
+    align-items: start;
+
+    gap: var(--spacing);
+  }
+}

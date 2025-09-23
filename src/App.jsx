@@ -70,8 +70,6 @@ export default function App() {
         )}
         {isGameOver ? (
           <GetGameOver
-            searchQueries={searchQueries}
-            setArtData={setArtData}
             setNumArtNeeded={setNumArtNeeded}
             setScore={setScore}
             setIsGameOver={setIsGameOver}

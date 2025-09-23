@@ -56,14 +56,10 @@ function seperateOneUnclickedArt(artData, unclickedArt) {
 function handleUnclicked(artData) {
   const unclickedArt = artData.filter((art) => !art.clicked);
 
-  // handle error====================================================================
-  // could be an issue on last click of 4 imgs? because none are unclicked?
-  // need fire getArtData before this
+  // handle error
   if (artData.length !== 0 && unclickedArt.length === 0) {
-    // alert("you win"); //temp
     throw new Error("no unclicked art");
   }
-  // =================================================================================
 
   return unclickedArt;
 }

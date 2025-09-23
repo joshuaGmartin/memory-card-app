@@ -1,8 +1,6 @@
 import handleGameReset from "../modules/handleGameReset";
 
 export default function GetGameOver({
-  searchQueries,
-  setArtData,
   setNumArtNeeded,
   setScore,
   setIsGameOver,

@@ -7,7 +7,6 @@
 }
 
 /***************** main *****************/
-/***************** sections *****************/
 
 #root {
   --padding: 1rem;
@@ -21,6 +20,8 @@
   font-family: "Cormorant Garamond", serif;
   font-size: large;
 }
+
+/***************** sections *****************/
 
 .header {
   display: grid;
@@ -42,8 +43,6 @@
     padding: var(--spacing);
     border: none;
     background: transparent;
-
-    /* font-weight: bold; */
 
     &:hover {
       text-decoration: underline;
@@ -101,7 +100,7 @@ img {
   --overlay-height: 15rem;
 
   position: fixed;
-  top: calc(50vh - var(--overlay-height) / 0.75);
+  top: calc(50vh - var(--overlay-height) / 0.8);
   left: calc(50vw - var(--overlay-width) / 2);
   z-index: 999;
 
@@ -111,7 +110,6 @@ img {
 
   border: black 0.5rem solid;
   background-color: white;
-  /* position: absolute; */
 
   display: grid;
   grid-template-rows: auto auto;
@@ -142,16 +140,8 @@ img {
   }
 }
 
-/* =========================================================================== */
-/*  */
-/* =========================================================================== */
-
-/* ---------------------------------------------- */
-/*  */
-/* ---------------------------------------------- */
-
 /* =================================================================== */
-/* catch all */
+/* media */
 /* =================================================================== */
 
 /* ============ Tablet ============ */
@@ -166,13 +156,15 @@ img {
     padding: var(--padding);
     padding-top: 0;
 
+    .title {
+      text-align: center;
+    }
+
     .header-buttons {
       justify-self: center;
     }
   }
-}
-/* ============ Mobile ============ */
-@media (max-width: 767px) {
+
   .art-cards {
     grid-template-columns: repeat(2, auto);
 
@@ -181,4 +173,12 @@ img {
 
     gap: var(--spacing);
   }
+
+  img {
+    max-height: 25vh;
+  }
+}
+
+/* ============ Mobile ============ */
+@media (max-width: 767px) {
 }

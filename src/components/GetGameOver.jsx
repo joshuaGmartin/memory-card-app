@@ -14,14 +14,7 @@ export default function GetGameOver({
         <button
           className="game-reset-button"
           onClick={() =>
-            handleGameReset(
-              searchQueries,
-              setArtData,
-              setNumArtNeeded,
-              setScore,
-              setIsGameOver,
-              true
-            )
+            handleGameReset(setNumArtNeeded, setScore, setIsGameOver)
           }
         >
           Try Again?

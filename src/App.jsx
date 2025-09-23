@@ -19,7 +19,7 @@ export default function App() {
 
   // if more art needed, get more art
   useEffect(() => {
-    //handle game over reset
+    // handle game reset
     const thisArtData = isGameOver ? [] : artData;
     const thisNumArtNeeded = isGameOver ? 4 : numArtNeeded;
 
@@ -55,16 +55,9 @@ export default function App() {
 
   return (
     <>
-      <GetHeader
-        searchQueries={searchQueries}
-        setArtData={setArtData}
-        score={score}
-        highScore={highScore}
-        setNumArtNeeded={setNumArtNeeded}
-        setScore={setScore}
-        setIsGameOver={setIsGameOver}
-      ></GetHeader>
+      <GetHeader score={score} highScore={highScore}></GetHeader>
       <div className="game-section">
+        {/* useEffect fires after artData updated, need check if all art is clicked (level passed) */}
         {artData.every((art) => art.clicked) ? null : (
           <GetArt
             artData={artData}

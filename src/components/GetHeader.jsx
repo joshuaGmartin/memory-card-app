@@ -1,14 +1,4 @@
-import handleGameReset from "../modules/handleGameReset";
-
-export default function GetHeader({
-  searchQueries,
-  setArtData,
-  score,
-  highScore,
-  setNumArtNeeded,
-  setScore,
-  setIsGameOver,
-}) {
+export default function GetHeader({ score, highScore }) {
   return (
     <div className="header">
       <div className="title">
@@ -21,23 +11,6 @@ export default function GetHeader({
         <i>Don't click an artwork more than once!</i>
       </div>
       <div className="header-buttons">
-        <button
-          id="header-reset-button"
-          onClick={() => {
-            // setIsGameOver(true);
-            handleGameReset(
-              searchQueries,
-              setArtData,
-              setNumArtNeeded,
-              setScore,
-              setIsGameOver,
-              true
-            );
-          }}
-        >
-          Reset
-        </button>
-
         <button
           id="gitHub-repo-link"
           onClick={() =>

@@ -18,7 +18,7 @@ export default function GetArt({
       setSelectedArt(selectRenderArt(artData, imgsOnScreen));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [artData]);
+  }, [artData, isGameOver]);
 
   // check for init
   if (!artData.length) return null;

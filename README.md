@@ -21,7 +21,7 @@ export default defineConfig({
 
 {
   "name": "memory-card-app",
-  "homepage": "https://github.com/joshuaGmartin/memory-card-app",
+  "homepage": "https://joshuagmartin.github.io/memory-card-app",
 
 -run: npm install gh-pages
 -add "predeploy": "npm run build" to package.json
@@ -31,6 +31,12 @@ export default defineConfig({
     "deploy": "gh-pages -d dist"
 
 -run:
+    git add .
+    git commit -m "gh-pages commit"
+    git push origin main
+    npm run deploy
+
+
 
 -->
 

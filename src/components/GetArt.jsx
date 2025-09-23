@@ -13,9 +13,15 @@ export default function GetArt({
   const [selectedArt, setSelectedArt] = useState([]);
 
   useEffect(() => {
+    const selectedArt_old = [...selectedArt];
     // no update selectedArt if gameOver screen
     if (!isGameOver) {
-      setSelectedArt(selectRenderArt(artData, imgsOnScreen));
+      let thisSelectedArt = selectRenderArt(artData, imgsOnScreen);
+      //bug fix: no allow reshuffle into same order
+      while (isSameOrder(selectedArt_old, thisSelectedArt)) {
+        thisSelectedArt = selectRenderArt(artData, imgsOnScreen);
+      }
+      setSelectedArt(thisSelectedArt);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [artData, isGameOver]);
@@ -53,4 +59,18 @@ export default function GetArt({
       })}
     </div>
   );
+}
+
+function isSameOrder(selectedArt_old, thisSelectedArt) {
+  let isSameOrder = false;
+
+  // triggers on any img being in the same spot
+  selectedArt_old.forEach((oldArt, index) => {
+    if (oldArt.image_id === thisSelectedArt[index].image_id) {
+      isSameOrder = true;
+      return;
+    }
+  });
+
+  return isSameOrder;
 }

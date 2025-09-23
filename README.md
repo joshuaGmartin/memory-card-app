@@ -8,23 +8,6 @@ https://api.artic.edu/docs/#images
 https://www.artic.edu/iiif/2/2d484387-2509-5e8e-2c43-22f9981972eb/full/843,/0/default.jpg
 
 
-idea:
-get 4 artworks at a time
-if no click on same one four times = level pass
-each click refreshes imgs in random order
-add 4 more artworks and do the same till failure
-need at least one unclicked artwork per refresh
-
-bugs:
--selected art fires twice when artData changes from new level?
-
-explanation:
-art database is created.
-4 art from database is randomly rendered
-there is at least one unclicked art per render
-click on unclicked art to rerender
-for every 4 art you get right, 4 more get pulled.
-continue until clicked a previously clicked art
 
 mods:
 load screen (while imgs load)

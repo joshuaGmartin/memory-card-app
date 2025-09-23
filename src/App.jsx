@@ -76,6 +76,16 @@ export default function App() {
           />
         ) : null}
       </div>
+      <div className="credit">
+        Powered by the{" "}
+        <a
+          href="https://api.artic.edu/docs/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Art Institute of Chicago API
+        </a>
+      </div>
     </>
   );
 }

@@ -1,43 +1,53 @@
-# memory-card-app
+# Memory Card App
 
-https://www.theodinproject.com/lessons/node-path-react-new-memory-card
+A **React-based memory game**
 
-<!--
+🔗 Live Demo: https://joshuagmartin.github.io/memory-card-app  
 
-https://api.artic.edu/docs/#images
-https://www.artic.edu/iiif/2/2d484387-2509-5e8e-2c43-22f9981972eb/full/843,/0/default.jpg
+---
 
+## Overview
 
-gh-pages:
+This project is a classic memory game where users must select cards **without clicking the same card twice**. Cards are shuffled after every selection, increasing difficulty as the game progresses.
 
--add "base" (gh repo name)to vite.config.js
+Game data is fetched from an external public API.
 
-export default defineConfig({
-    plugins: [react()],
-    base: "/memory-card-app"
-})
+---
 
--add "homepage" to package.json
+## Features
 
-{
-  "name": "memory-card-app",
-  "homepage": "https://joshuagmartin.github.io/memory-card-app",
+- React functional components and hooks
+- State management with `useState` and `useEffect`
+- External API data fetching
+- Randomized card order after every click
+- Scoreboard with current score and best score
+- Responsive, styled UI
 
--run: npm install gh-pages
--add "predeploy": "npm run build" to package.json
--add "deploy": "gh-pages -d dist" to package.json
+---
 
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+## Tech Stack
 
--run:
-    git add .
-    git commit -m "gh-pages commit"
-    git push origin main
-    npm run deploy
+- React
+- Vite
+- CSS
+- External API
+- GH Pages
 
+---
 
+## Getting Started
 
--->
+```bash
+git clone https://github.com/joshuaGmartin/memory-card-app.git
+cd memory-card-app
+npm install
+npm run dev
+```
 
--->
+---
+
+## Author
+
+Joshua Martin
+
+GitHub: https://github.com/joshuaGmartin
